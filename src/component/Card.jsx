@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Card({ onEdit, onDelete, id, title, body }) {
   const [editMode, setEditMode] = useState(false);
@@ -11,11 +13,12 @@ export default function Card({ onEdit, onDelete, id, title, body }) {
       onEdit(id, newTitle, newBody);
       setEditMode(false);
     } else {
-      alert("All fields are required");
+      toast.error("All fields are required.");
     }
   };
   return (
     <div className="pokemon-card margin-10px">
+      <ToastContainer />
       <h1 className="font-size-10px">Pokemon Id: {id}</h1>
       <div className="img d-block m-auto"></div>
       <div>
@@ -47,8 +50,12 @@ export default function Card({ onEdit, onDelete, id, title, body }) {
         )}
       </div>
       {editMode ? (
-        <button onClick={onSave} className="btn">
-          <FontAwesomeIcon icon={faCheck} style={{ color: "green" }} />
+        <button
+          onClick={onSave}
+          className="btn"
+          style={{ background: "rgb(19, 119, 181)", color: "white" }}
+        >
+          <FontAwesomeIcon icon={faCheck} />
           <span style={{ margin: 2 }}>Save</span>
         </button>
       ) : (
