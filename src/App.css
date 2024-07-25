@@ -114,6 +114,18 @@ body {
   transition: 1s ease-in-out;
 }
 
+@media (max-width: 440px) {
+  .addpokemon-btn {
+    display: block;
+    margin: auto;
+    width: 100px;
+  }
+
+  .img-header {
+    width: 150px;
+  }
+}
+
 /* Form design */
 form {
   border-radius: 10px;

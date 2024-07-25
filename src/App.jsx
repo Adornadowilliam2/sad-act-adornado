@@ -3,6 +3,7 @@ import "./App.css";
 import Card from "./component/Card";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAdd, faSearch } from "@fortawesome/free-solid-svg-icons";
+import header from "./media/pokedex.png";
 
 function App() {
   const [showcreateForm, setShowCreateForm] = useState(false);
@@ -72,8 +73,15 @@ function App() {
     <div>
       <div className="gap-1rem d-flex justify-content-center">
         {/* main content */}
-        <div className="d-flex align-item-center gap-1rem margin-10px">
-          <h1 className="text-align-center">Pokedex</h1>
+        <div className="d-flex align-item-center gap-1rem margin-10px flex-wrap">
+          <h1 className="text-align-center">
+            <img
+              src={header}
+              alt="pokedex header"
+              width="200px"
+              className="img-header"
+            />
+          </h1>
           <button
             className="addpokemon-btn btn"
             onClick={() => setShowCreateForm(!showcreateForm)}
