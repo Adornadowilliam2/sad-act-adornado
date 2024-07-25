@@ -47,7 +47,7 @@ body {
   margin: 10px;
 }
 
-.margin-left-10px{
+.margin-left-10px {
   margin-left: 10px;
 }
 
@@ -71,6 +71,18 @@ body {
   font-size: 20px;
 }
 
+.font-size-10px {
+  font-size: 10px;
+}
+
+.font-size-15px {
+  font-size: 15px;
+}
+
+.font-weight-bold {
+  font-weight: bold;
+}
+
 /* Custom for button */
 
 .edit-btn {
@@ -81,6 +93,7 @@ body {
   padding: 1px 10px;
   border: none;
   border-radius: 5px;
+  box-shadow: 0 0 10px black;
 }
 
 .delete-btn {
@@ -117,7 +130,6 @@ input {
   width: 100%;
 }
 
-
 /* Pokedex design  */
 .pokedex {
   background-color: silver;
@@ -142,7 +154,6 @@ input {
   background-color: white;
   border-radius: 50%;
   border: 10px solid black;
-
 }
 
 .part:nth-child(1) {
@@ -175,15 +186,16 @@ input {
   border-radius: 10px;
   padding: 10px 5px 1px 5px;
   max-width: 100%;
-  width: 300px;
+  width: 200px;
   height: 300px;
   background-color: aliceblue;
 }
 
 .img {
-  width: 280px;
+  width: 180px;
   height: 100px;
-  background-color: rgb(214, 197, 197);
+  background-image: url("media/bg.jpeg");
+  background-size: 100% 100%;
   border-radius: 10px;
   border: 5px solid black;
 }

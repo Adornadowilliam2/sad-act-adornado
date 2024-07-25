@@ -1,6 +1,8 @@
 import { useEffect, useLayoutEffect, useState } from "react";
 import "./App.css";
 import Card from "./component/Card";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAdd, faSearch } from "@fortawesome/free-solid-svg-icons";
 
 function App() {
   const [showcreateForm, setShowCreateForm] = useState(false);
@@ -76,7 +78,8 @@ function App() {
             className="addpokemon-btn btn"
             onClick={() => setShowCreateForm(!showcreateForm)}
           >
-            Add Pokemon
+            <FontAwesomeIcon icon={faSearch} />
+            Check Pokemon
           </button>
         </div>
       </div>
@@ -106,29 +109,39 @@ function App() {
               </div>
             </div>
             <div className="cover d-flex justify-content-center">
-            <div className="pokedex">
-              <form onSubmit={onCreate}>
-                <h1 className="text-align-center">Pokedev</h1>
-                <div className="mt-1">
-                  <input
-                    required
-                    placeholder="Pokemon Name"
-                    type="text"
-                    id="input_name"
-                  />
-                </div>
-                <div className="mt-1">
-                  <textarea
-                    required
-                    placeholder="Pokemon Type"
-                    id="input_type"
-                  ></textarea>
-                  <div>
-                    <button className="m-auto d-block">Create</button>
+              <div className="pokedex">
+                <form onSubmit={onCreate}>
+                  <h1 className="text-align-center">Pokedev</h1>
+                  <div className="mt-1">
+                    <input
+                      required
+                      placeholder="Pokemon Name"
+                      type="text"
+                      id="input_name"
+                    />
                   </div>
-                </div>
-              </form>
-            </div>
+                  <div className="mt-1">
+                    <textarea
+                      required
+                      placeholder="Pokemon Type"
+                      id="input_type"
+                    ></textarea>
+                    <div>
+                      <button
+                        className="m-auto d-block btn"
+                        style={{
+                          background: "rgb(19, 119, 181)",
+                          color: "white",
+                          marginTop: 3,
+                        }}
+                      >
+                        <FontAwesomeIcon icon={faAdd} />
+                        <span style={{ margin: 2 }}>Create</span>
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
         </div>
