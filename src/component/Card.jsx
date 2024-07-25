@@ -3,8 +3,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Typography,
+} from "@mui/material";
 
 export default function Card({ onEdit, onDelete, id, title, body }) {
+  const [deleteDialog, setDeleteDialog] = useState(null);
   const [editMode, setEditMode] = useState(false);
   const onSave = () => {
     const newTitle = document.getElementById("new_name").value;
@@ -67,12 +76,45 @@ export default function Card({ onEdit, onDelete, id, title, body }) {
             <FontAwesomeIcon icon={faPen} />
             <span style={{ margin: 2 }}>Edit</span>
           </button>
-          <button className="delete-btn btn" onClick={() => onDelete(id)}>
+          <button
+            className="delete-btn btn"
+            onClick={() => setDeleteDialog(id)}
+          >
             <FontAwesomeIcon icon={faTrash} />
             <span style={{ margin: 2 }}>Delete</span>
           </button>
         </div>
       )}
+
+      <Dialog open={!!deleteDialog}>
+        <DialogTitle>Are you sure?</DialogTitle>
+        <DialogContent>
+          <Typography>Do you want to delete this Card</Typography>
+        </DialogContent>
+        <DialogActions
+          sx={{
+            display: !!deleteDialog ? "flex" : "none",
+          }}
+        >
+          <Button
+            onClick={() => setDeleteDialog(null)}
+            style={{
+              border: "2px solid blue",
+            }}
+          >
+            Cancel
+          </Button>
+          <Button
+            onClick={() => onDelete(id)}
+            color="error"
+            style={{
+              border: "2px solid red",
+            }}
+          >
+            Confirm
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 }
