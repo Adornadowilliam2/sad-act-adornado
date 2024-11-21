@@ -8,37 +8,93 @@ import header from "./media/pokedex.png";
 function App() {
   const [showcreateForm, setShowCreateForm] = useState(false);
   const [pokemons, setPokemons] = useState([]);
+  const notyf = new Notyf();
+  // const onCreate = (e) => {
+  //   e.preventDefault();
 
+  //   const title = document.getElementById("input_name").value;
+  //   const body = document.getElementById("input_type").value;
+  //   const d = new Date();
+
+  //   fetch("https://heroku-azure.vercel.app/api/user")
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       const filterData = data.filter((item) => item.name.includes(title));
+  //       if (title) {
+  //         filterData.forEach((element) => {
+  //           console.log(element.image);
+  //           setImageData(element.image);
+  //           alert(element.image);
+  //         });
+  //       }
+  //     });
+  //   setPokemons([
+  //     {
+  //       id:
+  //         d.getDate() +
+  //         "" +
+  //         d.getHours() +
+  //         "" +
+  //         d.getMinutes() +
+  //         "" +
+  //         d.getSeconds() +
+  //         "" +
+  //         d.getMilliseconds(),
+  //       title,
+  //       body,
+  //       image,
+  //     },
+  //     ...pokemons,
+  //   ]);
+  //   setShowCreateForm(true);
+  // };
   const onCreate = (e) => {
     e.preventDefault();
 
     const title = document.getElementById("input_name").value;
     const body = document.getElementById("input_type").value;
     const d = new Date();
-    setPokemons([
-      {
-        id:
-          d.getDate() +
-          "" +
-          d.getHours() +
-          "" +
-          d.getMinutes() +
-          "" +
-          d.getSeconds() +
-          "" +
-          d.getMilliseconds(),
-        title,
-        body,
-      },
-      ...pokemons,
-    ]);
+
+    fetch("https://heroku-azure.vercel.app/api/user")
+      .then((res) => res.json())
+      .then((data) => {
+        const filterData = data.filter((item) => item.name.includes(title));
+        if (title && filterData.length > 0) {
+          const image = filterData[0].image;
+          const color = filterData[0].color;
+          setPokemons((prevPokemons) => [
+            {
+              id:
+                d.getDate() +
+                "" +
+                d.getHours() +
+                "" +
+                d.getMinutes() +
+                "" +
+                d.getSeconds() +
+                "" +
+                d.getMilliseconds(),
+              title,
+              body,
+              image,
+              color,
+            },
+            ...prevPokemons,
+          ]);
+        } else {
+          alert("Pokemon not found");
+        }
+      });
+
     setShowCreateForm(true);
+    notyf.success("Created Successfully!");
   };
 
   const onDelete = (id) => {
     const tempPokemons = pokemons.filter((pokemon) => pokemon.id !== id);
     setPokemons(tempPokemons);
     saveChanges(tempPokemons);
+    notyf.success("Deleted Successfully!");
   };
 
   const onEdit = (id, title, body) => {
@@ -51,6 +107,7 @@ function App() {
       return pokemon;
     });
     setPokemons(tempPokemons);
+    notyf.success("Updated Successfully!");
   };
 
   const saveChanges = (p = pokemons) => {
@@ -102,6 +159,8 @@ function App() {
               body={pokemon.body}
               onEdit={onEdit}
               onDelete={onDelete}
+              image={pokemon.image}
+              color={pokemon.color}
             />
           ))}
         </div>

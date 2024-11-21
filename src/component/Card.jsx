@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import {
   Button,
   Dialog,
@@ -12,9 +10,18 @@ import {
   Typography,
 } from "@mui/material";
 
-export default function Card({ onEdit, onDelete, id, title, body }) {
+export default function Card({
+  onEdit,
+  onDelete,
+  id,
+  title,
+  body,
+  image,
+  color,
+}) {
   const [deleteDialog, setDeleteDialog] = useState(null);
   const [editMode, setEditMode] = useState(false);
+  const notyf = new Notyf();
   const onSave = () => {
     const newTitle = document.getElementById("new_name").value;
     const newBody = document.getElementById("new_type").value;
@@ -22,14 +29,24 @@ export default function Card({ onEdit, onDelete, id, title, body }) {
       onEdit(id, newTitle, newBody);
       setEditMode(false);
     } else {
-      toast.error("All fields are required.");
+      notyf.error("All fields are required.");
     }
   };
+
+  const backgroundColor =
+    color && color.length > 1
+      ? `linear-gradient(${color[0]}, ${color[1]})`
+      : color && color.length == 1
+      ? color[0]
+      : "white";
+
   return (
-    <div className="pokemon-card margin-10px">
-      <ToastContainer />
-      <h1 className="font-size-10px">Pokemon Id: {id}</h1>
-      <div className="img d-block m-auto"></div>
+    <div
+      className="pokemon-card margin-10px"
+      style={{ background: backgroundColor }}
+    >
+      <h1 className="font-size-12px">Pokemon Id: {id}</h1>
+      <img className="img d-block m-auto" src={image} alt={title} />
       <div>
         {editMode ? (
           <input
@@ -39,7 +56,7 @@ export default function Card({ onEdit, onDelete, id, title, body }) {
             defaultValue={title}
           />
         ) : (
-          <h2 className="font-weight-none font-size-15px mt-1 margin-left-10px font-weight-bold">
+          <h2 className="font-weight-none font-size-14px mt-1 margin-left-10px font-weight-bold">
             Pokemon Name: <strong>{title}</strong>
           </h2>
         )}
@@ -53,7 +70,7 @@ export default function Card({ onEdit, onDelete, id, title, body }) {
             defaultValue={body}
           />
         ) : (
-          <p className="margin-left-10px font-weight-bold font-size-10px">
+          <p className="margin-left-10px font-weight-bold font-size-12px">
             Pokemon type: <strong>{body}</strong>
           </p>
         )}
@@ -89,7 +106,7 @@ export default function Card({ onEdit, onDelete, id, title, body }) {
       <Dialog open={!!deleteDialog}>
         <DialogTitle>Are you sure?</DialogTitle>
         <DialogContent>
-          <Typography>Do you want to delete this Card</Typography>
+          <Typography>Do you want to delete this Card?</Typography>
         </DialogContent>
         <DialogActions
           sx={{
