@@ -58,7 +58,9 @@ function App() {
     fetch("https://heroku-azure.vercel.app/api/user")
       .then((res) => res.json())
       .then((data) => {
-        const filterData = data.filter((item) => item.name.includes(title));
+        const filterData = data.filter((item) =>
+          item.name.includes(title.toLowerCase())
+        );
         if (title && filterData.length > 0) {
           const image = filterData[0].image;
           const color = filterData[0].color;
