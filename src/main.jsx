@@ -3,7 +3,6 @@ import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import Confetti from "react-confetti";
 
-// Move the state inside the App component.
 function Main() {
   const [showconfetti, setShowConfetti] = useState(false);
 
