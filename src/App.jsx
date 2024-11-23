@@ -5,49 +5,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAdd, faSearch } from "@fortawesome/free-solid-svg-icons";
 import header from "./media/pokedex.png";
 
-function App() {
+function App({ handleConfetti }) {
   const [showcreateForm, setShowCreateForm] = useState(false);
   const [pokemons, setPokemons] = useState([]);
   const notyf = new Notyf();
-  // const onCreate = (e) => {
-  //   e.preventDefault();
-
-  //   const title = document.getElementById("input_name").value;
-  //   const body = document.getElementById("input_type").value;
-  //   const d = new Date();
-
-  //   fetch("https://heroku-azure.vercel.app/api/user")
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       const filterData = data.filter((item) => item.name.includes(title));
-  //       if (title) {
-  //         filterData.forEach((element) => {
-  //           console.log(element.image);
-  //           setImageData(element.image);
-  //           alert(element.image);
-  //         });
-  //       }
-  //     });
-  //   setPokemons([
-  //     {
-  //       id:
-  //         d.getDate() +
-  //         "" +
-  //         d.getHours() +
-  //         "" +
-  //         d.getMinutes() +
-  //         "" +
-  //         d.getSeconds() +
-  //         "" +
-  //         d.getMilliseconds(),
-  //       title,
-  //       body,
-  //       image,
-  //     },
-  //     ...pokemons,
-  //   ]);
-  //   setShowCreateForm(true);
-  // };
   const onCreate = (e) => {
     e.preventDefault();
 
@@ -64,6 +25,9 @@ function App() {
         if (title && filterData.length > 0) {
           const image = filterData[0].image;
           const color = filterData[0].color;
+          const type = filterData[0].type;
+          const weakness = filterData[0].weakness;
+          const resistance = filterData[0].resistance;
           setPokemons((prevPokemons) => [
             {
               id:
@@ -80,16 +44,20 @@ function App() {
               body,
               image,
               color,
+              type,
+              weakness,
+              resistance,
             },
             ...prevPokemons,
           ]);
+          notyf.success("Created Successfully!");
+          handleConfetti();
         } else {
           alert("Pokemon not found");
         }
       });
 
     setShowCreateForm(true);
-    notyf.success("Created Successfully!");
   };
 
   const onDelete = (id) => {
@@ -99,13 +67,26 @@ function App() {
     notyf.success("Deleted Successfully!");
   };
 
-  const onEdit = (id, title, body) => {
+  const onEdit = (
+    id,
+    newTitle,
+    newBody,
+    newImage,
+    newColor,
+    newType,
+    newWeakness,
+    newResistance
+  ) => {
     const tempPokemons = pokemons.map((pokemon) => {
       if (pokemon.id === id) {
-        pokemon.title = title;
-        pokemon.body = body;
+        pokemon.title = newTitle;
+        pokemon.body = newBody;
+        pokemon.image = newImage;
+        pokemon.color = newColor;
+        pokemon.type = newType;
+        pokemon.weakness = newWeakness;
+        pokemon.resistance = newResistance;
       }
-
       return pokemon;
     });
     setPokemons(tempPokemons);
@@ -163,6 +144,9 @@ function App() {
               onDelete={onDelete}
               image={pokemon.image}
               color={pokemon.color}
+              type={pokemon.type}
+              weakness={pokemon.weakness}
+              resistance={pokemon.resistance}
             />
           ))}
         </div>
